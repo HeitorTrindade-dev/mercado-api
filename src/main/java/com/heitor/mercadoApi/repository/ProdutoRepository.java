@@ -1,17 +1,20 @@
 package com.heitor.mercadoApi.repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.sql.DataSource;
 
 import com.heitor.mercadoApi.model.Produto;
 
 
 @Repository
 public class ProdutoRepository {
-    private final JdbcTemplate jdbcTemplate;
+    public void insertProduto(Produto produto) throws SQLException{
+        String scriptSql = "INSERT INTO produtos(nome,preco,quantdade) VALUES (?,?,?)";
 
-    public ProdutoRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        Connection connection = DataSource.getConne
+
     }
-    
 }
