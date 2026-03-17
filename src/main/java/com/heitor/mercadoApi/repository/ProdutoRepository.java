@@ -1,12 +1,16 @@
 package com.heitor.mercadoApi.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.heitor.mercadoApi.model.Produto;
 
@@ -31,5 +35,26 @@ public class ProdutoRepository {
 
         statement.executeUpdate();
 
+    }
+
+    public List<Produto> selectProdutos() throws SQLException{
+        List<Produto> lista = new ArrayList<>();
+        String scriptSql = "SELECT * FROM produtos";
+
+        Connection connection = dataSource.getConnection();
+
+        PreparedStatement statement = connection.prepareStatement(scriptSql);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            Produto produto = new Produto();
+            produto.setId(resultSet.getInt("id"));
+            produto.setNome(resultSet.getString("nome"));
+            produto.setPreco(resultSet.getDouble("preco"));
+            produto.setQuantidade(resultSet.getInt("quantiade"));
+
+            lista.add(produto);
+        }
+        return lista;
     }
 }
