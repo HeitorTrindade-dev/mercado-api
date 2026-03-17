@@ -18,7 +18,7 @@ public class ProdutoRepository {
     private DataSource dataSource;
 
     public void insertProduto(Produto produto) throws SQLException{
-        String scriptSql = "INSERT INTO produtos(nome,preco,quantdade) VALUES (?,?,?)";
+        String scriptSql = "INSERT INTO produtos(nome,preco,quantidade) VALUES (?,?,?)";
 
         Connection connection = dataSource.getConnection();
 
